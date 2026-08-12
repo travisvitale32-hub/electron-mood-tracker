@@ -439,5 +439,5 @@ updateStreakAndStats();
 // Developer section defaults
 const devAvatar = document.getElementById('devAvatar');
 const devName = document.getElementById('devName');
-if(devAvatar){devAvatar.src='https://i.pravatar.cc/128?u=travis';}
+if(devAvatar){devAvatar.src='https://ibb.co/1Gzk07L9';}
 if(devName){devName.textContent='Travis';}
