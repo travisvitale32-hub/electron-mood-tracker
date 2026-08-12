@@ -36,6 +36,10 @@
           <label for="notes">Notes</label>
           <textarea id="notes" rows="2" placeholder="Optional reflection..."></textarea>
         </div>
+        <div class="field full">
+          <label for="tags">Tags (comma-separated)</label>
+          <input type="text" id="tags" placeholder="e.g., work, sleep, exercise, social"/>
+        </div>
       </div>
       <button id="saveBtn">Save Entry</button>
       <p id="status"></p>
@@ -69,12 +73,61 @@
       </div>
     </section>
 
+    <section class="history-card">
+      <h2>Entry History</h2>
+      <div id="historyTable" class="history-table"></div>
+    </section>
+
+    <section class="streaks-card">
+      <h2>🔥 Streak & Advanced Stats</h2>
+      <div class="streaks-grid">
+        <div class="streak-item">
+          <div class="streak-label">Current Streak</div>
+          <div class="streak-value" id="currentStreak">0 days</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-label">Longest Streak</div>
+          <div class="streak-value" id="longestStreak">0 days</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-label">Min Anxiety</div>
+          <div class="streak-value" id="minAnxiety">-</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-label">Max Anxiety</div>
+          <div class="streak-value" id="maxAnxiety">-</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-label">Min Depression</div>
+          <div class="streak-value" id="minDepression">-</div>
+        </div>
+        <div class="streak-item">
+          <div class="streak-label">Max Depression</div>
+          <div class="streak-value" id="maxDepression">-</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="advanced-stats-card">
+      <h2>Trends & Insights</h2>
+      <div id="advancedStats" class="advanced-stats-content"></div>
+    </section>
+
+    <section class="export-card">
+      <h2>Export Data</h2>
+      <div class="export-buttons">
+        <button id="exportCsvBtn" class="export-btn">Download CSV</button>
+        <button id="exportJsonBtn" class="export-btn">Download JSON</button>
+      </div>
+      <p id="exportStatus"></p>
+    </section>
+
     <section class="developer-card">
       <img id="devAvatar" alt="Developer"/>
       <div class="dev-info">
         <h3 id="devName">Travis</h3>
         <p id="devRole">Developer</p>
-        <p class="dev-bio">Mocksville, North Carolina</p>
+        <p class="dev-bio">Made with love in Mocksville, North Carolina</p>
       </div>
     </section>
 

@@ -31,7 +31,7 @@ h1{margin:0;font-size:32px;letter-spacing:.3px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .field.full{grid-column:1/-1}
 label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
-input[type="date"], textarea{
+input[type="date"], input[type="text"], textarea{
   width:100%;padding:10px 12px;border-radius:10px;
   background:#0c0f14;border:1px solid #232838;color:var(--text);
   font-size:14px;
@@ -56,8 +56,43 @@ button:hover{filter:brightness(1.1)}
 .stat{background:#0c0f14;border:1px solid #232838;border-radius:12px;padding:14px;text-align:center}
 .stat .label{display:block;color:var(--muted);font-size:12px;margin-bottom:4px}
 .stat span:last-child{font-size:22px;font-weight:700}
+.history-card{background:linear-gradient(180deg,var(--card),var(--card-2));border-radius:var(--radius);padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.35);margin-bottom:20px}
+.history-card h2{margin-top:0}
+.history-table{max-height:400px;overflow-y:auto;border:1px solid #232838;border-radius:10px}
+.history-row{display:grid;grid-template-columns:120px 80px 100px 150px 120px 100px;gap:12px;padding:12px;border-bottom:1px solid #232838;align-items:center;font-size:13px}
+.history-row:last-child{border-bottom:none}
+.history-row.header{background:#0c0f14;font-weight:600;color:var(--muted);position:sticky;top:0;z-index:10}
+.history-row .anxiety{color:#7aa2f7}
+.history-row .depression{color:#f78da7}
+.history-row .notes{color:var(--muted);word-break:break-word}
+.history-row .actions{display:flex;gap:6px}
+.history-row .actions button{padding:4px 8px;font-size:11px;background:#232838;border:1px solid #384860;color:var(--text);border-radius:6px;cursor:pointer}
+.history-row .actions button:hover{background:#384860}
+.history-row .actions .delete-btn{background:#7a3a3a;border-color:#9a5a5a}
+.history-row .actions .delete-btn:hover{background:#9a5a5a}
+.history-row.edit-mode{align-items:flex-start}
+.history-row.edit-mode input, .history-row.edit-mode textarea{background:#0c0f14;border:1px solid #384860;color:var(--text);padding:6px;font-size:12px;border-radius:4px;font-family:inherit}
+.history-row.edit-mode input{width:100%}
+.no-entries{text-align:center;color:var(--muted);padding:40px 20px}
 .developer-card{background:linear-gradient(180deg,var(--card),var(--card-2));border-radius:var(--radius);padding:18px;display:flex;align-items:center;gap:16px;margin-bottom:40px}
 .developer-card img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid #232838}
 .dev-info h3{margin:0;font-size:18px}
 .dev-info p{margin:2px 0;color:var(--muted)}
 .dev-bio{font-size:13px}
+.streaks-card, .advanced-stats-card, .export-card{background:linear-gradient(180deg,var(--card),var(--card-2));border-radius:var(--radius);padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.35);margin-bottom:20px}
+.streaks-card h2, .advanced-stats-card h2, .export-card h2{margin-top:0}
+.streaks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.streak-item{background:#0c0f14;border:1px solid #232838;border-radius:12px;padding:16px;text-align:center}
+.streak-label{font-size:12px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.streak-value{font-size:24px;font-weight:700;color:var(--accent)}
+.streak-value.declining{color:#f78da7}
+.advanced-stats-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.stat-box{background:#0c0f14;border:1px solid #232838;border-radius:12px;padding:14px;font-size:13px}
+.stat-box-label{color:var(--muted);margin-bottom:8px}
+.stat-box-value{color:var(--accent);font-weight:700;font-size:16px}
+.trend-up{color:#4ade80}
+.trend-down{color:#f87171}
+.export-buttons{display:flex;gap:12px;margin-bottom:12px}
+.export-btn{background:#232838;border:1px solid #384860;color:var(--text);padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer;transition:all .2s}
+.export-btn:hover{background:#384860;border-color:#5a6a80}
+#exportStatus{color:var(--muted);font-size:13px;margin-top:8px}
