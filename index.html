@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mood Tracker</title>
+<link rel="stylesheet" href="style.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>Mood & Wellbeing</h1>
+    <p class="subtitle">Track anxiety and depression with clarity</p>
+  </header>
+
+  <main>
+    <section class="input-card">
+      <h2>Log today's entry</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="date">Date</label>
+          <input type="date" id="date"/>
+        </div>
+        <div class="field">
+          <label for="anxiety">Anxiety (0-10)</label>
+          <input type="range" id="anxiety" min="0" max="10" value="5"/>
+          <span id="anxietyVal">5</span>
+        </div>
+        <div class="field">
+          <label for="depression">Depression (0-10)</label>
+          <input type="range" id="depression" min="0" max="10" value="5"/>
+          <span id="depressionVal">5</span>
+        </div>
+        <div class="field full">
+          <label for="notes">Notes</label>
+          <textarea id="notes" rows="2" placeholder="Optional reflection..."></textarea>
+        </div>
+      </div>
+      <button id="saveBtn">Save Entry</button>
+      <p id="status"></p>
+    </section>
+
+    <section class="controls">
+      <div class="tabs">
+        <button data-range="daily" class="active">Daily</button>
+        <button data-range="weekly">Weekly</button>
+        <button data-range="monthly">Monthly</button>
+        <button data-range="yearly">Yearly</button>
+      </div>
+    </section>
+
+    <section class="chart-card">
+      <canvas id="moodChart"></canvas>
+    </section>
+
+    <section class="stats-card">
+      <div class="stat">
+        <span class="label">Avg Anxiety</span>
+        <span id="avgAnxiety">-</span>
+      </div>
+      <div class="stat">
+        <span class="label">Avg Depression</span>
+        <span id="avgDepression">-</span>
+      </div>
+      <div class="stat">
+        <span class="label">Entries</span>
+        <span id="entryCount">0</span>
+      </div>
+    </section>
+
+    <section class="developer-card">
+      <img id="devAvatar" alt="Developer"/>
+      <div class="dev-info">
+        <h3 id="devName">Travis</h3>
+        <p id="devRole">Developer</p>
+        <p class="dev-bio">Mocksville, North Carolina</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script src="renderer.js"></script>
+</body>
+</html>
