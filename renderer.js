@@ -10,7 +10,7 @@ const tagsEl = document.getElementById('tags');
 const saveBtn = document.getElementById('saveBtn');
 const statusEl = document.getElementById('status');
 
-dateEl.valueAsDate = new Date();
+dateEl.value = formatDateOnly(new Date());
 
 anxietyEl.addEventListener('input',()=>anxietyVal.textContent = anxietyEl.value);
 depressionEl.addEventListener('input',()=>depressionVal.textContent = depressionEl.value);
@@ -77,14 +77,22 @@ function makeChart(labels, anxietyData, depressionData){
   });
 }
 
-function formatDate(d){return d.toISOString().slice(0,10)}
+function parseDateOnly(dateString){
+  const [year, month, day] = dateString.split('-').map(Number);
+  return new Date(year, month - 1, day);
+}
+
+function formatDateOnly(date){
+  return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+}
+
 function getRangeData(entries, range){
   const map = new Map();
   const today = new Date();
   const daysBack = {daily:7, weekly:12, monthly:12, yearly:5}[range];
   // We'll just filter last N periods
   const filtered = entries.filter(e=>{
-    const ed = new Date(e.date);
+    const ed = parseDateOnly(e.date);
     const diffDays = (today-ed)/(1000*60*60*24);
     if(range==='daily') return diffDays<=30;
     if(range==='weekly') return diffDays<=84;
@@ -108,14 +116,14 @@ function getRangeData(entries, range){
   // Build aggregated points
   const points=[];
   filtered.forEach(e=>{
-    const d=new Date(e.date);
+    const d=parseDateOnly(e.date);
     let key='';
     if(range==='daily'){
       key = e.date;
     } else if(range==='weekly'){
       const weekStart = new Date(d);
       weekStart.setDate(d.getDate()-d.getDay());
-      key = weekStart.toISOString().slice(0,10);
+      key = formatDateOnly(weekStart);
     } else if(range==='monthly'){
       key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
     } else {
@@ -136,14 +144,14 @@ function getRangeData(entries, range){
     const dAvg = v.depression.reduce((s,x)=>s+x,0)/v.depression.length;
     let label=k;
     if(range==='weekly'){
-      const d=new Date(k); label = `W ${d.toLocaleDateString(undefined,{month:'short'})}`;
+      const d=parseDateOnly(k); label = `W ${d.toLocaleDateString(undefined,{month:'short'})}`;
     } else if(range==='monthly'){
       const [y,m]=k.split('-');
       label = `${new Date(y,m-1).toLocaleString(undefined,{month:'short'})} ${y}`;
     } else if(range==='yearly'){
       label=k;
     } else {
-      label=new Date(k).toLocaleDateString(undefined,{month:'short',day:'numeric'});
+      label=parseDateOnly(k).toLocaleDateString(undefined,{month:'short',day:'numeric'});
     }
     labels.push(label);
     anxietyAvg.push(+aAvg.toFixed(2));
@@ -196,7 +204,7 @@ function renderHistory(){
   }
   let html='<div class="history-row header"><div>Date</div><div>Anxiety</div><div>Depression</div><div>Notes</div><div>Tags</div><div>Actions</div></div>';
   entries.slice().reverse().forEach((e,idx)=>{
-    const displayDate=new Date(e.date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+    const displayDate=parseDateOnly(e.date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
     const notes=e.notes||'-';
     const tags=(e.tags||[]).length>0?e.tags.join(', '):'-';
     html+=`<div class="history-row" data-date="${e.date}">
@@ -237,7 +245,7 @@ function editEntry(date){
     renderHistory();
     return;
   }
-  const displayDate=new Date(date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  const displayDate=parseDateOnly(date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
   row.classList.add('edit-mode');
   row.innerHTML=`
     <div class="date">${displayDate}</div>
@@ -278,7 +286,7 @@ function saveEditedEntry(date){
 function calculateStreak(){
   const entries=loadEntries();
   if(entries.length===0) return {current:0,longest:0};
-  const sortedDates=entries.map(e=>new Date(e.date)).sort((a,b)=>b-a);
+  const sortedDates=entries.map(e=>parseDateOnly(e.date)).sort((a,b)=>b-a);
   let current=0,longest=0,tempStreak=1;
   for(let i=0;i<sortedDates.length;i++){
     if(i===0){
@@ -343,7 +351,7 @@ function updateAdvancedStats(entries){
     return;
   }
   
-  const sorted=entries.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const sorted=entries.slice().sort((a,b)=>parseDateOnly(a.date)-parseDateOnly(b.date));
   const first=sorted[0];
   const last=sorted[sorted.length-1];
   
